@@ -21,27 +21,52 @@ exports.handler = async function(event) {
   // 🔥 hw6: your recipe and code starts here!
   let year = event.queryStringParameters.year
   let genre = event.queryStringParameters.genre
-  
-  if (year == undefined || genre == undefined) {
-    return {
-      statusCode: 200, // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-      body: `Nope!` // a string of data
-    }
-  }
-  else {
-    let returnValue = {
-      numResults: 0,
-      movies: []
-    }
 
+  // create a new array to be returned by the API
+  let moviesToReturn = {
+    count: 0,
+    information: []
+  }
+
+    // loop through the posts; for each one:
     for (let i=0; i < moviesFromCsv.length; i++) {
 
-    }
+      // store each listing in memory
+      let movie = moviesFromCsv[i]
+
+      // check if the year is not zero. if so:
+      if (movie.startYear == year) {
+        // create a new post object containing the pertinent fields
+        let theMovie = {
+          title: movie.primaryTitle,
+          releaseYear: movie.startYear,
+          movieGenre: movie.genres
+        }
+
+      // add (push) the post object to the final Array
+      moviesToReturn.information.push(theMovie)
+      moviesToReturn.count = moviesToReturn.count + 1
+      }
+
+      // if (year == undefined || genre == undefined) {
+      //   return {
+      //     statusCode: 200, // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+      //     body: `Nope!` // a string of data
+      //   }
+      // }
+    //   else {
+    //     let  = noMovies = {
+    //       numResults: 0,
+    //       movies: []
+    //     }
+    //   // add (push) the post object to the final Array
+    //   moviesToReturn.push(noMovies)
+    // }
 
     // a lambda function returns a status code and a string of data
     return {
       statusCode: 200, // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-      body: `Hello from the back-end!` // a string of data
+      body: JSON.stringify(moviesToReturn)// a string of data
     }
   }
 }
