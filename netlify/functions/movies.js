@@ -25,7 +25,7 @@ exports.handler = async function (event) {
   if (year == undefined || genre == undefined || genre == `` || year == ``) {
     return {
       statusCode: 200, // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-      body: `Nope!` // a string of data -- make up an error message
+      body: `Please define year and genre to get results!` // a string of data
     }
   }
   else {
